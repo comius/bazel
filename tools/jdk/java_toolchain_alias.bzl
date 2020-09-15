@@ -17,7 +17,7 @@
 def _java_runtime_alias(ctx):
     """An experimental implementation of java_runtime_alias using toolchain resolution."""
     if java_common.is_java_toolchain_resolution_enabled_do_not_use(ctx = ctx):
-        toolchain = ctx.toolchains["@rules_java//java/toolchains:java_runtime_toolchain_type"]
+        toolchain = ctx.toolchains["@rules_java//java/toolchains:runtime_toolchain_type"]
     else:
         toolchain = ctx.attr._legacy_java_runtime[java_common.JavaRuntimeInfo]
     return [
@@ -35,7 +35,7 @@ def _java_runtime_alias(ctx):
 
 java_runtime_alias = rule(
     implementation = _java_runtime_alias,
-    toolchains = ["@rules_java//java/toolchains:java_runtime_toolchain_type"],
+    toolchains = ["@rules_java//java/toolchains:runtime_toolchain_type"],
     attrs = {
         "_legacy_java_runtime": attr.label(
             default = Label("@bazel_tools//tools/jdk:legacy_current_java_runtime"),
@@ -48,7 +48,7 @@ def _java_host_runtime_alias(ctx):
 
     #    runtime = ctx.attr._runtime
     if java_common.is_java_toolchain_resolution_enabled_do_not_use(ctx = ctx):
-        toolchain = ctx.toolchains["@rules_java//java/toolchains:host_java_runtime_toolchain_type"]
+        toolchain = ctx.toolchains["@rules_java//java/toolchains:runtime_toolchain_type"]
     else:
         toolchain = ctx.attr._legacy_java_runtime[java_common.JavaRuntimeInfo]
     return [
@@ -74,7 +74,7 @@ def _java_host_runtime_alias(ctx):
 
 java_host_runtime_alias = rule(
     implementation = _java_host_runtime_alias,
-    toolchains = ["@rules_java//java/toolchains:host_java_runtime_toolchain_type"],
+    toolchains = ["@rules_java//java/toolchains:runtime_toolchain_type"],
     attrs = {
         "_legacy_java_runtime": attr.label(
             default = Label("@bazel_tools//tools/jdk:current_java_runtime"),
@@ -90,7 +90,7 @@ java_host_runtime_alias = rule(
 def _java_toolchain_alias(ctx):
     """An experimental implementation of java_toolchain_alias using toolchain resolution."""
     if java_common.is_java_toolchain_resolution_enabled_do_not_use(ctx = ctx):
-        toolchain = ctx.toolchains["@rules_java//java/toolchains:javac_toolchain_type"]
+        toolchain = ctx.toolchains["@rules_java//java/toolchains:toolchain_type"]
     else:
         toolchain = ctx.attr._java_toolchain[java_common.JavaToolchainInfo]
     return struct(
@@ -101,7 +101,7 @@ def _java_toolchain_alias(ctx):
 
 java_toolchain_alias = rule(
     implementation = _java_toolchain_alias,
-    toolchains = ["@rules_java//java/toolchains:javac_toolchain_type"],
+    toolchains = ["@rules_java//java/toolchains:toolchain_type"],
     attrs = {
         "_java_toolchain": attr.label(
             default = Label("@bazel_tools//tools/jdk:legacy_current_java_toolchain"),
