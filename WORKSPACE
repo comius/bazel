@@ -80,8 +80,24 @@ list_source_repository(name = "local_bazel_source_list")
 #   2. Set the $ANDROID_HOME and $ANDROID_NDK_HOME environment variables
 #   3. Uncomment the two lines below
 #
-# android_sdk_repository(name = "androidsdk")
-# android_ndk_repository(name = "androidndk")
+android_sdk_repository(name = "androidsdk")
+android_ndk_repository(name = "androidndk")
+
+load("//tools/jdk:remote_java_repository.bzl", "remote_java_repository")
+
+remote_java_repository(
+    name = "remotejdk11_linux",
+    exec_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    sha256 = "6c79bfe8bb06c82b72ef2f293a14becef56b3078d298dc75fda4225cbb2d3d0c",
+    strip_prefix = "zulu11.43.55-ca-jdk11.0.9.1-linux_x64",
+    urls = [
+        "https://cdn.azul.com/zulu/bin/zulu11.43.55-ca-jdk11.0.9.1-linux_x64.tar.gz",
+    ],
+    version = "11",
+)
 
 # In order to run //src/test/shell/bazel:maven_skylark_test, follow the
 # instructions above for the Android integration tests and uncomment the
