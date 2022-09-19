@@ -464,13 +464,11 @@ int main(){
 }
 EOF
   assert_build //:foo \
-    --noincompatible_enable_cc_toolchain_resolution \
     --cpu=armeabi-v7a \
     --crosstool_top=@androidndk//:toolchain-libcpp \
     --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 
   assert_build //:foo \
-    --noincompatible_enable_cc_toolchain_resolution \
     --features=compiler_param_file \
     --cpu=armeabi-v7a \
     --crosstool_top=@androidndk//:toolchain-libcpp \
